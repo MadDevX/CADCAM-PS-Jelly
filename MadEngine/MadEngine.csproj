@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{17B48E27-77DE-4DFC-BB80-F2D8A1DEB7C1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MadEngine</RootNamespace>
+    <AssemblyName>MadEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=3.2.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.2\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.2.0.0\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=2.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Wpf.2.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Architecture\Registry.cs" />
+    <Compile Include="Architecture\SingletonField.cs" />
+    <Compile Include="Architecture\TessellationLevelsManager.cs" />
+    <Compile Include="Architecture\TextureProvider.cs" />
+    <Compile Include="Components\AmplitudeGatherer.cs" />
+    <Compile Include="Components\Internal\MComponent.cs" />
+    <Compile Include="Components\Internal\IMComponent.cs" />
+    <Compile Include="Components\Internal\UpdatableMComponent.cs" />
+    <Compile Include="Components\Plotter.cs" />
+    <Compile Include="Components\SpinningTopMovement.cs" />
+    <Compile Include="Components\SpringMovement.cs" />
+    <Compile Include="Components\TrajectoryDrawer.cs" />
+    <Compile Include="HUD\Grid.cs" />
+    <Compile Include="Miscellaneous\GridGenerator.cs" />
+    <Compile Include="Miscellaneous\SpinningTopSimulation.cs" />
+    <Compile Include="Physics\InertiaData.cs" />
+    <Compile Include="Physics\RungeKutta.cs" />
+    <Compile Include="SimulationProperties.xaml.cs">
+      <DependentUpon>SimulationProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Miscellaneous\WorldAxes.cs" />
+    <Compile Include="Plotting\DataExporter.cs" />
+    <Compile Include="PolygonFillModeView.xaml.cs">
+      <DependentUpon>PolygonFillModeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Rendering\BackgroundManager.cs" />
+    <Compile Include="Hierarchy\DummyTransform.cs" />
+    <Compile Include="Hierarchy\Node.cs" />
+    <Compile Include="Hierarchy\INode.cs" />
+    <Compile Include="Rendering\DummyRenderer.cs" />
+    <Compile Include="Rendering\IRenderer.cs" />
+    <Compile Include="Rendering\LineRenderer.cs" />
+    <Compile Include="Rendering\MeshRenderer.cs" />
+    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\Texture.cs" />
+    <Compile Include="Rendering\Wrappers\AbstractShaderWrapper.cs" />
+    <Compile Include="Rendering\RenderConstants.cs" />
+    <Compile Include="Rendering\RenderLoop.cs" />
+    <Compile Include="Rendering\ScreenBufferManager.cs" />
+    <Compile Include="Rendering\Shader.cs" />
+    <Compile Include="Rendering\Wrappers\TessellationShadedShaderWrapper.cs" />
+    <Compile Include="Rendering\Wrappers\ShaderWrapper.cs" />
+    <Compile Include="Rendering\Wrappers\SimpleShaderWrapper.cs" />
+    <Compile Include="Rendering\TesselationShaderWrapper.cs" />
+    <Compile Include="Hierarchy\Scene.cs" />
+    <Compile Include="Architecture\SceneManager.cs" />
+    <Compile Include="Miscellaneous\ShaderUseTracker.cs" />
+    <Compile Include="TessellationParameters.xaml.cs">
+      <DependentUpon>TessellationParameters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\ShaderPaths.cs" />
+    <Compile Include="Architecture\ShaderProvider.cs" />
+    <Compile Include="Utility\ShaderUseTracker.cs" />
+    <Compile Include="Hierarchy\Transform.cs" />
+    <Compile Include="Utility\Coordinates.cs" />
+    <Compile Include="Utility\CoordList.cs" />
+    <Compile Include="Utility\DictionaryInitializer.cs" />
+    <Compile Include="Utility\MathExtensions.cs" />
+    <Compile Include="Utility\MeshUtility.cs" />
+    <Compile Include="Utility\TexturePaths.cs" />
+    <Compile Include="Utility\VBOUtility.cs" />
+    <Compile Include="Rendering\ViewportManager.cs" />
+    <Compile Include="Utility\VertexLayout.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utility\BezierHelper.cs" />
+    <Compile Include="Camera\Camera.cs" />
+    <Compile Include="Camera\CameraMovement.cs" />
+    <Compile Include="Architecture\CompositionRoot.cs" />
+    <Compile Include="Miscellaneous\ILoops.cs" />
+    <Compile Include="Hierarchy\ITransform.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="SimulationProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PolygonFillModeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TessellationParameters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Rendering\Mesh.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Rendering\Shaders\fs.frag" />
+    <None Include="Rendering\Shaders\fsPhongTextured.frag" />
+    <None Include="Rendering\Shaders\fsPhong.frag" />
+    <None Include="Rendering\Shaders\fsQuad.frag" />
+    <None Include="Rendering\Shaders\gsBezierC0.geom" />
+    <None Include="Rendering\Shaders\simpleFs.frag" />
+    <None Include="Rendering\Shaders\simpleVs.vert" />
+    <None Include="Rendering\Shaders\tcBezierDynamicLOD.tesc" />
+    <None Include="Rendering\Shaders\tcQuad.tesc" />
+    <None Include="Rendering\Shaders\tcBezier.tesc" />
+    <None Include="Rendering\Shaders\teBezierTextured.tese" />
+    <None Include="Rendering\Shaders\teBezier.tese" />
+    <None Include="Rendering\Shaders\teQuad.tese" />
+    <None Include="Rendering\Shaders\teDeBoor.tese" />
+    <None Include="Rendering\Shaders\vsWorld.vert" />
+    <None Include="Rendering\Shaders\vs.vert" />
+    <None Include="Rendering\Shaders\simpleVsPhong.vert" />
+    <None Include="Rendering\Shaders\vsPhong.vert" />
+    <None Include="Rendering\Shaders\vsQuad.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(ProjectDir)Rendering\Shaders\*.frag" "$(ProjectDir)$(OutDir)"
+copy "$(ProjectDir)Rendering\Shaders\*.vert" "$(ProjectDir)$(OutDir)"
+copy "$(ProjectDir)Rendering\Shaders\*.geom" "$(ProjectDir)$(OutDir)"
+copy "$(ProjectDir)Rendering\Shaders\*.tesc" "$(ProjectDir)$(OutDir)"
+copy "$(ProjectDir)Rendering\Shaders\*.tese" "$(ProjectDir)$(OutDir)"
+copy "$(ProjectDir)textures\*.jpg" "$(ProjectDir)$(OutDir)"
+copy "$(ProjectDir)textures\*.dds" "$(ProjectDir)$(OutDir)"
+copy "$(ProjectDir)textures\*.png" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
