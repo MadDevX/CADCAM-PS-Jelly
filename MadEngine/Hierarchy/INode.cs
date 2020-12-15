@@ -25,6 +25,6 @@ namespace MadEngine
 
         void AttachComponents(params IMComponent[] components);
         void DetachComponents(params IMComponent[] components);
-        T GetComponent<T>() where T : IMComponent;
+        T GetComponent<T>();
     }
 }

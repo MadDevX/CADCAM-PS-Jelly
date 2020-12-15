@@ -132,7 +132,7 @@ namespace MadEngine
             }
         }
 
-        public T GetComponent<T>() where T : IMComponent
+        public T GetComponent<T>()/* where T : IMComponent*/
         {
             foreach (var component in _components)
             {

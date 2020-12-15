@@ -16,7 +16,7 @@ float far = 100.0f; //if changed, also change in Camera.cs
 float fogDistance = 90.0f;
 float LinearizeDepth(float depth);
 
-float kd = 0.5f, ks = 0.2f, m = 100.0f, ka = 0.1f;
+float kd = 0.5f, ks = 0.15f, m = 48.0f, ka = 0.1f;
 
 void main()
 {

@@ -80,15 +80,19 @@
     <Compile Include="Components\Internal\MComponent.cs" />
     <Compile Include="Components\Internal\IMComponent.cs" />
     <Compile Include="Components\Internal\UpdatableMComponent.cs" />
+    <Compile Include="Components\JellyData.cs" />
+    <Compile Include="Components\PlaceholderJellyController.cs" />
     <Compile Include="Components\Plotter.cs" />
     <Compile Include="Components\SpinningTopMovement.cs" />
     <Compile Include="Components\SpringMovement.cs" />
     <Compile Include="Components\TrajectoryDrawer.cs" />
     <Compile Include="HUD\Grid.cs" />
+    <Compile Include="Interfaces\IDynamicMeshSource.cs" />
     <Compile Include="Miscellaneous\GridGenerator.cs" />
     <Compile Include="Miscellaneous\SpinningTopSimulation.cs" />
     <Compile Include="Physics\InertiaData.cs" />
     <Compile Include="Physics\RungeKutta.cs" />
+    <Compile Include="Rendering\DynamicMeshRenderer.cs" />
     <Compile Include="SimulationProperties.xaml.cs">
       <DependentUpon>SimulationProperties.xaml</DependentUpon>
     </Compile>

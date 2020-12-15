@@ -29,6 +29,7 @@ namespace MadEngine
         public void Initialize()
         {
             rbLines.IsChecked = true;
+            //rbFill.IsChecked = true;
         }
 
         private void rbLines_Checked(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using MadEngine.Components;
+using MadEngine.Rendering;
 using MadEngine.Utility;
 using OpenTK;
 using OpenTK.Graphics;
@@ -87,6 +88,11 @@ namespace MadEngine.Miscellaneous
             _sceneManager = sceneManager;
             _shaderProvider = shaderProvider;
 
+            var jelly = new Node(new Transform(Vector3.Zero, Quaternion.Identity, Vector3.One), "jelly");
+            var jellyData = new JellyData();
+            var jellyRenderer = new DynamicMeshRenderer(shaderProvider.SurfaceShaderBezier, new Mesh(VertexLayout.Type.Position), jellyData);
+            var jellyController = new PlaceholderJellyController();
+            jelly.AttachComponents(jellyData, jellyRenderer, jellyController);
             Cube = new Node(new Transform(Vector3.Zero, _baseRotation, Vector3.One * 0.1f), "cube");
             DiagonalRenderer = new LineRenderer(_shaderProvider.DefaultShader) { Color = Color4.Orange };
             var offset = new Vector3(0.5f, 0.5f, 0.5f);
@@ -101,6 +107,7 @@ namespace MadEngine.Miscellaneous
             Cube.AttachComponents(CubeRenderer, DiagonalRenderer, SpinningTopMovement, TrajectoryRenderer, TrajectoryDrawer);
 
             _sceneManager.CurrentScene.AttachChild(Cube);
+            _sceneManager.CurrentScene.AttachChild(jelly);
             DiagonalInclination = 10.0f;
         }
 
