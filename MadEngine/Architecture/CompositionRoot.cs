@@ -30,7 +30,7 @@ namespace MadEngine
         private RenderLoop _renderLoop;
 
         private Grid _grid;
-        private SpinningTopSimulation _simulation;
+        private JellySimulation _simulation;
 
         public CompositionRoot(GLControl control, MainWindow window)
         {
@@ -58,7 +58,7 @@ namespace MadEngine
             _renderLoop = new RenderLoop(_control, _screenBufferManager, _sceneManager, _camera, _shaderProvider);
 
             _grid = new Grid(_camera, _renderLoop, new LineRenderer(_shaderProvider.DefaultShader));
-            _simulation = new SpinningTopSimulation(_sceneManager, _shaderProvider);
+            _simulation = new JellySimulation(_sceneManager, _shaderProvider);
 
 
             _window.tessellationParametersView.DataContext = Registry.TessellationLevels;

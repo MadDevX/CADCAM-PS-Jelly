@@ -10,6 +10,8 @@ namespace MadEngine.Components
 {
     public class JellyData : MComponent, IDynamicMeshSource
     {
+        public event Action OnDataModified;
+
         public Vector3d[] DataPoints = new Vector3d[64];
 
         private Vector3d[] _jellyWalls = new Vector3d[16 * 6];
@@ -29,7 +31,7 @@ namespace MadEngine.Components
                 {
                     for(int x = 0; x < 4; x++)
                     {
-                        DataPoints[x + z * 4 + y * 16] = new Vector3d(x, y, z) * third + offset;
+                        DataPoints[GetIndex(x, y, z)] = new Vector3d(x, y, z) * third + offset;
                     }
                 }
             }
@@ -50,21 +52,27 @@ namespace MadEngine.Components
             }
         }
         
+        public int GetIndex(int x, int y, int z)
+        {
+            return x + z * 4 + y * 16;
+        }
+
         public Vector3d GetPoint(int x, int y, int z)
         {
-            return DataPoints[x + z * 4 + y * 16];
+            return DataPoints[GetIndex(x, y, z)];
         }
 
         public void SetPoint(int x, int y, int z, Vector3d value)
         {
-            DataPoints[x + z * 4 + y * 16] = value;
+            DataPoints[GetIndex(x, y, z)] = value;
             _isDirty = true;
+            OnDataModified?.Invoke();
         }
 
         /// <summary>
         /// Forces to update Mesh data on the next rendered frame
         /// </summary>
-        public void SetDirty() { _isDirty = true; }
+        public void SetDirty() { _isDirty = true; OnDataModified?.Invoke(); }
         private void UpdateJellyWalls()
         {
             int idx = 0;

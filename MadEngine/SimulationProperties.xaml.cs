@@ -26,13 +26,15 @@ namespace MadEngine
     /// </summary>
     public partial class SimulationProperties : UserControl
     {
-        private SpinningTopSimulation _simulation;
+        private JellySimulation _simulation;
 
         public float CubeSize { get => _simulation.CubeSize; set => _simulation.CubeSize = value; }
         public float CubeDensity { get => _simulation.CubeDensity; set => _simulation.CubeDensity = value; }
         public bool CubeEnabled { get => _simulation.CubeRenderer.Enabled; set => _simulation.CubeRenderer.Enabled = value; }
         public bool DiagonalEnabled { get => _simulation.DiagonalRenderer.Enabled; set => _simulation.DiagonalRenderer.Enabled = value; }
         public bool TrajectoryEnabled { get => _simulation.TrajectoryRenderer.Enabled; set => _simulation.TrajectoryRenderer.Enabled = value; }
+        public bool WireframeEnabled { get => _simulation.WireframeRenderer.Enabled; set => _simulation.WireframeRenderer.Enabled = value; }
+        public bool ControlFrameEnabled { get => _simulation.ControlFrameRenderer.Enabled; set => _simulation.ControlFrameRenderer.Enabled = value; }
         public bool GravityEnabled { get => _simulation.SpinningTopMovement.GravityEnabled; set => _simulation.SpinningTopMovement.GravityEnabled = value; }
         public float Gravity { get => (float)_simulation.SpinningTopMovement.GravityMult; set => _simulation.SpinningTopMovement.GravityMult = value; }
         public float Omega { get => _simulation.Omega; set => _simulation.Omega = value; }
@@ -71,7 +73,7 @@ namespace MadEngine
             //_tbs.Add(tbFDT);
         }
 
-        public void Initialize(SpinningTopSimulation simulation)
+        public void Initialize(JellySimulation simulation)
         {
             _simulation = simulation;
             DataContext = this;

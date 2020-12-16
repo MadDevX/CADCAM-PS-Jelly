@@ -12,18 +12,25 @@ using System.Windows;
 
 namespace MadEngine.Miscellaneous
 {
-    public class SpinningTopSimulation : IDisposable
+    public class JellySimulation : IDisposable
     {   
         private SceneManager _sceneManager;
         private ShaderProvider _shaderProvider;
-
+        
+        //SPINNING TOP
         public LineRenderer DiagonalRenderer { get; private set; }
         public LineRenderer CubeRenderer { get; private set; }
         public LineRenderer TrajectoryRenderer { get; private set; }
         public TrajectoryDrawer TrajectoryDrawer { get; private set; }
         public SpinningTopMovement SpinningTopMovement { get; private set; }
-
         public Node Cube { get; private set; }
+
+
+        //JELLY
+        public LineRenderer WireframeRenderer { get; private set; }
+        public LineRenderer ControlFrameRenderer { get; private set; }
+        public Node Jelly { get; private set; }
+        public Node ControlFrame { get; private set; }
 
         public float CubeSize
         {
@@ -83,16 +90,30 @@ namespace MadEngine.Miscellaneous
                                            Quaternion.FromAxisAngle(new Vector3(1.0f, 0.0f, 0.0f).Normalized(), (float) (Math.PI* 0.75));
 
 
-        public SpinningTopSimulation(SceneManager sceneManager, ShaderProvider shaderProvider)
+        public JellySimulation(SceneManager sceneManager, ShaderProvider shaderProvider)
         {
             _sceneManager = sceneManager;
             _shaderProvider = shaderProvider;
 
-            var jelly = new Node(new Transform(Vector3.Zero, Quaternion.Identity, Vector3.One), "jelly");
+            ControlFrame = new Node(new Transform(Vector3.One * 0.25f, Quaternion.FromEulerAngles(1.0f, 1.0f, 0.0f), Vector3.One), "controlFrame");
+            ControlFrameRenderer = new LineRenderer(shaderProvider.DefaultShader);
+            var jellyControlFrame = new JellyControlFrame(ControlFrameRenderer, 1.0);
+            ControlFrame.AttachComponents(ControlFrameRenderer, jellyControlFrame);
+
+            Jelly = new Node(new Transform(Vector3.Zero, Quaternion.Identity, Vector3.One), "jelly");
             var jellyData = new JellyData();
             var jellyRenderer = new DynamicMeshRenderer(shaderProvider.SurfaceShaderBezier, new Mesh(VertexLayout.Type.Position), jellyData);
             var jellyController = new PlaceholderJellyController();
-            jelly.AttachComponents(jellyData, jellyRenderer, jellyController);
+            
+            var boundingBoxRenderer = new LineRenderer(shaderProvider.DefaultShader);
+            var jellyBoundingBox = new JellyBoundingBox(boundingBoxRenderer, 5.0);
+
+            WireframeRenderer = new LineRenderer(shaderProvider.DefaultShader);
+            var jellyCPVisualizer = new JellyControlPointVisualizer(WireframeRenderer);
+            Jelly.AttachComponents(jellyData, jellyRenderer, jellyController, boundingBoxRenderer, jellyBoundingBox, 
+                                    WireframeRenderer, jellyCPVisualizer);
+
+
             Cube = new Node(new Transform(Vector3.Zero, _baseRotation, Vector3.One * 0.1f), "cube");
             DiagonalRenderer = new LineRenderer(_shaderProvider.DefaultShader) { Color = Color4.Orange };
             var offset = new Vector3(0.5f, 0.5f, 0.5f);
@@ -106,8 +127,9 @@ namespace MadEngine.Miscellaneous
             SpinningTopMovement = new SpinningTopMovement(_defaultSize, _defaultDensity, CubeRenderer, DiagonalRenderer);
             Cube.AttachComponents(CubeRenderer, DiagonalRenderer, SpinningTopMovement, TrajectoryRenderer, TrajectoryDrawer);
 
-            _sceneManager.CurrentScene.AttachChild(Cube);
-            _sceneManager.CurrentScene.AttachChild(jelly);
+            //_sceneManager.CurrentScene.AttachChild(Cube);
+            _sceneManager.CurrentScene.AttachChild(Jelly);
+            _sceneManager.CurrentScene.AttachChild(ControlFrame);
             DiagonalInclination = 10.0f;
         }
 

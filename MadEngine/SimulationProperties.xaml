@@ -27,7 +27,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Cube Size" Grid.Row="0" Grid.Column="0"/>
+            <!--<TextBlock Text="Cube Size" Grid.Row="0" Grid.Column="0"/>
             <TextBlock Text="Cube Density" Grid.Row="1" Grid.Column="0"/>
             <TextBlock Text="Diagonal Inclination" Grid.Row="2" Grid.Column="0"/>
             <TextBlock Text="Angular velocity (ω)" Grid.Row="3" Grid.Column="0"/>
@@ -47,8 +47,9 @@
 
             <CheckBox Grid.Row="8" Grid.Column="0" Content="Draw Trajectory" IsChecked="{Binding TrajectoryEnabled}"/>
             <CheckBox Grid.Row="9" Grid.Column="0" Content="Gravity" IsChecked="{Binding GravityEnabled}"/>
-            <CheckBox Grid.Row="10" Grid.Column="0" Content="Cube Visible" IsChecked="{Binding CubeEnabled}"/>
-            <CheckBox Grid.Row="11" Grid.Column="0" Content="Diagonal Visible" IsChecked="{Binding DiagonalEnabled}"/>
+            <CheckBox Grid.Row="10" Grid.Column="0" Content="Cube Visible" IsChecked="{Binding CubeEnabled}"/>-->
+            <CheckBox Grid.Row="11" Grid.Column="0" Content="Control Frame Visible" IsChecked="{Binding ControlFrameEnabled}"/>
+            <CheckBox Grid.Row="12" Grid.Column="0" Content="Wireframe Visible" IsChecked="{Binding WireframeEnabled}"/>
         </Grid>
     </GroupBox>
 </UserControl>

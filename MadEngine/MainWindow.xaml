@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <WindowsFormsHost Grid.Column="0" x:Name="Host"/>
         <StackPanel Grid.Column="1" Grid.RowSpan="2">
-            <local:SimulationProperties x:Name="meshSelector"/>
+            <local:SimulationProperties x:Name="meshSelector" Visibility="Visible"/>
             <local:TessellationParameters x:Name="tessellationParametersView" Visibility="Visible"/>
             <local:PolygonFillModeView x:Name="polygonFillView" Visibility="Visible"/>
         </StackPanel>
