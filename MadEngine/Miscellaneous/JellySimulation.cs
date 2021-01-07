@@ -95,7 +95,7 @@ namespace MadEngine.Miscellaneous
             _sceneManager = sceneManager;
             _shaderProvider = shaderProvider;
 
-            ControlFrame = new Node(new Transform(Vector3.One * 0.25f, Quaternion.FromEulerAngles(1.0f, 1.0f, 0.0f), Vector3.One), "controlFrame");
+            ControlFrame = new Node(new Transform(Vector3.Zero, Quaternion.Identity /* Quaternion.FromEulerAngles(1.0f, 1.0f, 0.0f)*/, Vector3.One), "controlFrame");
             ControlFrameRenderer = new LineRenderer(shaderProvider.DefaultShader);
             var jellyControlFrame = new JellyControlFrame(ControlFrameRenderer, 1.0);
             ControlFrame.AttachComponents(ControlFrameRenderer, jellyControlFrame);

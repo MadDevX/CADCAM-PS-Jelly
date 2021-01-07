@@ -94,6 +94,7 @@
     <Compile Include="Miscellaneous\GridGenerator.cs" />
     <Compile Include="Miscellaneous\JellySimulation.cs" />
     <Compile Include="Physics\InertiaData.cs" />
+    <Compile Include="Physics\Newton.cs" />
     <Compile Include="Physics\RungeKutta.cs" />
     <Compile Include="Rendering\DynamicMeshRenderer.cs" />
     <Compile Include="SimulationProperties.xaml.cs">
