@@ -10,6 +10,8 @@ namespace MadEngine
 {
     public interface ITransform
     {
+        event Action OnDataChanged;
+
         Vector3 Position { get; set; }
         Quaternion Rotation { get; set; }
         Vector3 RotationEulerAngles { get; set; }

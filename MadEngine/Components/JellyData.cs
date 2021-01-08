@@ -1,4 +1,5 @@
-﻿using MadEngine.Rendering;
+﻿using MadEngine.Physics;
+using MadEngine.Rendering;
 using OpenTK;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace MadEngine.Components
     {
         public event Action OnDataModified;
 
-        public Vector3d[] DataPoints = new Vector3d[64];
+        public CubeArray<Vector3d> DataPoints = new CubeArray<Vector3d>(4, 4, 4);
 
         private Vector3d[] _jellyWalls = new Vector3d[16 * 6];
 
@@ -31,7 +32,7 @@ namespace MadEngine.Components
                 {
                     for(int x = 0; x < 4; x++)
                     {
-                        DataPoints[GetIndex(x, y, z)] = new Vector3d(x, y, z) * third + offset;
+                        DataPoints[x, y, z] = new Vector3d(x, y, z) * third + offset;
                     }
                 }
             }
@@ -59,12 +60,12 @@ namespace MadEngine.Components
 
         public Vector3d GetPoint(int x, int y, int z)
         {
-            return DataPoints[GetIndex(x, y, z)];
+            return DataPoints[x, y, z];
         }
 
         public void SetPoint(int x, int y, int z, Vector3d value)
         {
-            DataPoints[GetIndex(x, y, z)] = value;
+            DataPoints[x, y, z] = value;
             _isDirty = true;
             OnDataModified?.Invoke();
         }
@@ -76,12 +77,12 @@ namespace MadEngine.Components
         private void UpdateJellyWalls()
         {
             int idx = 0;
-            for (int z = 0; z < 4; z++) for (int x = 0; x < 4; x++)  _jellyWalls[idx++] = GetPoint(x, 0, z); //bottom
-            for (int z = 0; z < 4; z++) for (int x = 0; x < 4; x++)  _jellyWalls[idx++] = GetPoint(x, 3, z); //top
-            for (int y = 0; y < 4; y++) for (int x = 0; x < 4; x++)  _jellyWalls[idx++] = GetPoint(x, y, 0); //back
-            for (int y = 0; y < 4; y++) for (int x = 0; x < 4; x++)  _jellyWalls[idx++] = GetPoint(x, y, 3); //front
-            for (int y = 0; y < 4; y++) for (int z = 0; z < 4; z++)  _jellyWalls[idx++] = GetPoint(0, y, z); //left
-            for (int y = 0; y < 4; y++) for (int z = 0; z < 4; z++)  _jellyWalls[idx++] = GetPoint(3, y, z); //right
+            for (int z = 0; z < 4; z++) for (int x = 0; x < 4; x++)  _jellyWalls[idx++] = DataPoints[x, 0, z]; //bottom
+            for (int z = 0; z < 4; z++) for (int x = 0; x < 4; x++)  _jellyWalls[idx++] = DataPoints[x, 3, z]; //top
+            for (int y = 0; y < 4; y++) for (int x = 0; x < 4; x++)  _jellyWalls[idx++] = DataPoints[x, y, 0]; //back
+            for (int y = 0; y < 4; y++) for (int x = 0; x < 4; x++)  _jellyWalls[idx++] = DataPoints[x, y, 3]; //front
+            for (int y = 0; y < 4; y++) for (int z = 0; z < 4; z++)  _jellyWalls[idx++] = DataPoints[0, y, z]; //left
+            for (int y = 0; y < 4; y++) for (int z = 0; z < 4; z++)  _jellyWalls[idx++] = DataPoints[3, y, z]; //right
         }
         
     }

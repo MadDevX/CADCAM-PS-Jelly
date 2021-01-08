@@ -11,6 +11,8 @@ namespace MadEngine
 {
     public class Transform : ITransform
     {
+        public event Action OnDataChanged;
+
         private Vector3 _position = Vector3.Zero;
         private Vector3 _scale = Vector3.One;
         private Quaternion _rotation = Quaternion.Identity;
@@ -21,6 +23,7 @@ namespace MadEngine
             set
             {
                 _position = value;
+                OnDataChanged?.Invoke();
             }
         }
         public virtual Vector3 Scale
@@ -29,6 +32,7 @@ namespace MadEngine
             set
             {
                 _scale = value;
+                OnDataChanged?.Invoke();
             }
         }
         public virtual Quaternion Rotation
@@ -37,6 +41,7 @@ namespace MadEngine
             set
             {
                 _rotation = value.Normalized();
+                OnDataChanged?.Invoke();
             }
         }
         public Vector3 RotationEulerAngles
@@ -48,6 +53,7 @@ namespace MadEngine
             set
             {
                 Rotation = Quaternion.FromEulerAngles(value);
+                OnDataChanged?.Invoke();
             }
         }
 

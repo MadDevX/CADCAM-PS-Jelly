@@ -77,11 +77,13 @@
     <Compile Include="Architecture\TessellationLevelsManager.cs" />
     <Compile Include="Architecture\TextureProvider.cs" />
     <Compile Include="Components\AmplitudeGatherer.cs" />
+    <Compile Include="Physics\Jelly\CubeArray.cs" />
     <Compile Include="Components\Internal\MComponent.cs" />
     <Compile Include="Components\Internal\IMComponent.cs" />
     <Compile Include="Components\Internal\UpdatableMComponent.cs" />
     <Compile Include="Components\JellyBoundingBox.cs" />
     <Compile Include="Components\JellyControlFrame.cs" />
+    <Compile Include="Components\JellyController.cs" />
     <Compile Include="Components\JellyControlPointVisualizer.cs" />
     <Compile Include="Components\JellyData.cs" />
     <Compile Include="Components\PlaceholderJellyController.cs" />
@@ -90,12 +92,14 @@
     <Compile Include="Components\SpringMovement.cs" />
     <Compile Include="Components\TrajectoryDrawer.cs" />
     <Compile Include="HUD\Grid.cs" />
+    <Compile Include="Input\JellyInput.cs" />
     <Compile Include="Interfaces\IDynamicMeshSource.cs" />
     <Compile Include="Miscellaneous\GridGenerator.cs" />
     <Compile Include="Miscellaneous\JellySimulation.cs" />
-    <Compile Include="Physics\InertiaData.cs" />
-    <Compile Include="Physics\Newton.cs" />
-    <Compile Include="Physics\RungeKutta.cs" />
+    <Compile Include="Physics\SpinningTop\InertiaData.cs" />
+    <Compile Include="Physics\Jelly\Newton.cs" />
+    <Compile Include="Physics\SpinningTop\RungeKutta.cs" />
+    <Compile Include="Physics\Jelly\SpringData.cs" />
     <Compile Include="Rendering\DynamicMeshRenderer.cs" />
     <Compile Include="SimulationProperties.xaml.cs">
       <DependentUpon>SimulationProperties.xaml</DependentUpon>
@@ -153,7 +157,7 @@
     </Compile>
     <Compile Include="Utility\BezierHelper.cs" />
     <Compile Include="Camera\Camera.cs" />
-    <Compile Include="Camera\CameraMovement.cs" />
+    <Compile Include="Input\CameraMovement.cs" />
     <Compile Include="Architecture\CompositionRoot.cs" />
     <Compile Include="Miscellaneous\ILoops.cs" />
     <Compile Include="Hierarchy\ITransform.cs" />

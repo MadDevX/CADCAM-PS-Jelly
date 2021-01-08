@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MadEngine.Architecture;
 using MadEngine.Miscellaneous;
+using MadEngine.Input;
 
 namespace MadEngine
 {
@@ -31,6 +32,7 @@ namespace MadEngine
 
         private Grid _grid;
         private JellySimulation _simulation;
+        private JellyInput _jellyInput;
 
         public CompositionRoot(GLControl control, MainWindow window)
         {
@@ -59,7 +61,7 @@ namespace MadEngine
 
             _grid = new Grid(_camera, _renderLoop, new LineRenderer(_shaderProvider.DefaultShader));
             _simulation = new JellySimulation(_sceneManager, _shaderProvider);
-
+            _jellyInput = new JellyInput(_simulation.Jelly, _simulation.ControlFrame, _control, _camera);
 
             _window.tessellationParametersView.DataContext = Registry.TessellationLevels;
             _window.meshSelector.Initialize(_simulation);
@@ -69,6 +71,7 @@ namespace MadEngine
 
         public void Dispose()
         {
+            _jellyInput.Dispose();
             _simulation.Dispose();
             _grid.Dispose();
             _renderLoop.Dispose();

@@ -103,7 +103,7 @@ namespace MadEngine.Miscellaneous
             Jelly = new Node(new Transform(Vector3.Zero, Quaternion.Identity, Vector3.One), "jelly");
             var jellyData = new JellyData();
             var jellyRenderer = new DynamicMeshRenderer(shaderProvider.SurfaceShaderBezier, new Mesh(VertexLayout.Type.Position), jellyData);
-            var jellyController = new PlaceholderJellyController();
+            var jellyController = new JellyController(jellyControlFrame);
             
             var boundingBoxRenderer = new LineRenderer(shaderProvider.DefaultShader);
             var jellyBoundingBox = new JellyBoundingBox(boundingBoxRenderer, 5.0);

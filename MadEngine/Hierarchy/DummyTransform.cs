@@ -10,6 +10,7 @@ namespace MadEngine
 {
     public class DummyTransform : ITransform
     {
+        public event Action OnDataChanged;
         public virtual Vector3 Position { get => Vector3.Zero; set { } }
         public Quaternion Rotation { get => Quaternion.Identity; set { } }
         public Vector3 RotationEulerAngles { get => Vector3.Zero; set { } }

@@ -13,11 +13,11 @@ uniform vec3 lightCol = vec3(1.0f, 1.0f, 1.0f);
 uniform vec3 camPos;
 
 uniform vec3 lightsPos[5]=vec3[5](
-	vec3(0.0f, 5.0f, 0.0f),
-	vec3(5.0f, 0.0f, 0.0f),
-	vec3(-5.0f, 0.0f, 0.0f),
-	vec3(0.0f, 0.0f, 5.0f),
-	vec3(0.0f, 0.0f, -5.0f)
+	vec3( 0.0f,  7.5f,  0.0f),
+	vec3( 7.5f,  0.0f,  0.0f),
+	vec3(-7.5f,  0.0f,  0.0f),
+	vec3( 0.0f,  0.0f,  7.5f),
+	vec3( 0.0f,  0.0f, -7.5f)
 );
 
 float near = 0.01f; //if changed, also change in Camera.cs
