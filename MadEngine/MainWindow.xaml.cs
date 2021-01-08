@@ -44,7 +44,7 @@ namespace MadEngine
 
         private float _fixedTimer = 0.0f;
 
-        private float _fixedDeltaTime = 0.01666f;
+        private float _fixedDeltaTime = 0.02f;
         private float _fixedDeltaTimeMin = 0.001f;
         public float FixedDeltaTime
         {

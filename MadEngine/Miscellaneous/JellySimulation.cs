@@ -101,12 +101,13 @@ namespace MadEngine.Miscellaneous
             ControlFrame.AttachComponents(ControlFrameRenderer, jellyControlFrame);
 
             Jelly = new Node(new Transform(Vector3.Zero, Quaternion.Identity, Vector3.One), "jelly");
-            var jellyData = new JellyData();
-            var jellyRenderer = new DynamicMeshRenderer(shaderProvider.SurfaceShaderBezier, new Mesh(VertexLayout.Type.Position), jellyData);
-            var jellyController = new JellyController(jellyControlFrame);
             
             var boundingBoxRenderer = new LineRenderer(shaderProvider.DefaultShader);
             var jellyBoundingBox = new JellyBoundingBox(boundingBoxRenderer, 5.0);
+            
+            var jellyData = new JellyData();
+            var jellyRenderer = new DynamicMeshRenderer(shaderProvider.SurfaceShaderBezier, new Mesh(VertexLayout.Type.Position), jellyData);
+            var jellyController = new JellyController(jellyControlFrame);
 
             WireframeRenderer = new LineRenderer(shaderProvider.DefaultShader);
             var jellyCPVisualizer = new JellyControlPointVisualizer(WireframeRenderer);
