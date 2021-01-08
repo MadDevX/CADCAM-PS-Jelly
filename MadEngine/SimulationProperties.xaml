@@ -26,28 +26,30 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <!--<TextBlock Text="Cube Size" Grid.Row="0" Grid.Column="0"/>
-            <TextBlock Text="Cube Density" Grid.Row="1" Grid.Column="0"/>
-            <TextBlock Text="Diagonal Inclination" Grid.Row="2" Grid.Column="0"/>
-            <TextBlock Text="Angular velocity (ω)" Grid.Row="3" Grid.Column="0"/>
-            <TextBlock Text="Trajectory Length" Grid.Row="4" Grid.Column="0"/>
-            <TextBlock Text="Gravity Mult" Grid.Row="5" Grid.Column="0"/>
+            <TextBlock Text="Mass of Control Point" Grid.Row="0" Grid.Column="0"/>
+            <TextBlock Text="C1 (Springiness-Jelly)" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock Text="C2 (Springiness-Frame)" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Text="C3 (Springiness-Support)" Grid.Row="3" Grid.Column="0"/>
+            <TextBlock Text="K (Friction)" Grid.Row="4" Grid.Column="0"/>
+            <TextBlock Text="μ (Bounciness)" Grid.Row="5" Grid.Column="0"/>
             <TextBlock Text="FixedDeltaTime" Grid.Row="6" Grid.Column="0"/>
             <TextBlock Text="TimeScale" Grid.Row="7" Grid.Column="0"/>
+            <TextBlock Text="Random Velocity Multiplier" Grid.Row="8" Grid.Column="0"/>
 
-            <TextBox x:Name="tbCubeSize" Grid.Row="0" Grid.Column="1" Text="{Binding CubeSize, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
-            <TextBox x:Name="tbCubeDensity" Grid.Row="1" Grid.Column="1" Text="{Binding CubeDensity, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
-            <TextBox x:Name="tbDiagonalInclination" Grid.Row="2" Grid.Column="1" Text="{Binding DiagonalInclination, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
-            <TextBox x:Name="tbOmega" Grid.Row="3" Grid.Column="1" Text="{Binding Omega, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
-            <TextBox x:Name="tbTrajectoryLength" Grid.Row="4" Grid.Column="1" Text="{Binding TrajectoryLength, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
-            <TextBox x:Name="tbGravity" Grid.Row="5" Grid.Column="1" Text="{Binding Gravity, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
+            <TextBox x:Name="tbMass" Grid.Row="0" Grid.Column="1" Text="{Binding MassOfControlPoint, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
+            <TextBox x:Name="tbC1" Grid.Row="1" Grid.Column="1" Text="{Binding C1, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
+            <TextBox x:Name="tbC2" Grid.Row="2" Grid.Column="1" Text="{Binding C2, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
+            <TextBox x:Name="tbC3" Grid.Row="3" Grid.Column="1" Text="{Binding C3, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
+            <TextBox x:Name="tbK" Grid.Row="4" Grid.Column="1" Text="{Binding K, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
+            <TextBox x:Name="tbBounciness" Grid.Row="5" Grid.Column="1" Text="{Binding Bounciness, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
             <TextBox x:Name="tbFDT" Grid.Row="6" Grid.Column="1" Text="{Binding FixedDeltaTime, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
             <TextBox x:Name="tbTS" Grid.Row="7" Grid.Column="1" Text="{Binding TimeScale, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
-
-            <CheckBox Grid.Row="8" Grid.Column="0" Content="Draw Trajectory" IsChecked="{Binding TrajectoryEnabled}"/>
-            <CheckBox Grid.Row="9" Grid.Column="0" Content="Gravity" IsChecked="{Binding GravityEnabled}"/>
-            <CheckBox Grid.Row="10" Grid.Column="0" Content="Cube Visible" IsChecked="{Binding CubeEnabled}"/>-->
+            <TextBox x:Name="tbRandomVelocityMult" Grid.Row="8" Grid.Column="1" Text="{Binding RandomVelocityMult, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
+            <Button x:Name="btnRandomizeVelocities" Grid.Row="9" Grid.Column="0" Content="Randomize Velocities" Click="btnRandomizeVelocities_Click"/>
+            <Button x:Name="btnRestartSimulation" Grid.Row="9" Grid.Column="1" Content="Restart Simulation" Click="btnRestartSim_Click"/>
+            <CheckBox Grid.Row="10" Grid.Column="0" Content="Support Springs" IsChecked="{Binding SupportSprings}"/>
             <CheckBox Grid.Row="11" Grid.Column="0" Content="Control Frame Visible" IsChecked="{Binding ControlFrameEnabled}"/>
             <CheckBox Grid.Row="12" Grid.Column="0" Content="Wireframe Visible" IsChecked="{Binding WireframeEnabled}"/>
         </Grid>

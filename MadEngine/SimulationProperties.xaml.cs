@@ -28,18 +28,18 @@ namespace MadEngine
     {
         private JellySimulation _simulation;
 
-        public float CubeSize { get => _simulation.CubeSize; set => _simulation.CubeSize = value; }
-        public float CubeDensity { get => _simulation.CubeDensity; set => _simulation.CubeDensity = value; }
-        public bool CubeEnabled { get => _simulation.CubeRenderer.Enabled; set => _simulation.CubeRenderer.Enabled = value; }
-        public bool DiagonalEnabled { get => _simulation.DiagonalRenderer.Enabled; set => _simulation.DiagonalRenderer.Enabled = value; }
-        public bool TrajectoryEnabled { get => _simulation.TrajectoryRenderer.Enabled; set => _simulation.TrajectoryRenderer.Enabled = value; }
+        
+        public double MassOfControlPoint { get => _simulation.JellyController.MassOfSinglePoint; set => _simulation.JellyController.MassOfSinglePoint = value; }
+
+        public double C1 { get => _simulation.JellyController.Springiness; set => _simulation.JellyController.Springiness = value; }
+        public double C2 { get => _simulation.JellyController.SpringinessCF; set => _simulation.JellyController.SpringinessCF = value; }
+        public bool SupportSprings { get => _simulation.JellyController.SupportSprings; set { _simulation.JellyController.SupportSprings = value; tbC3.IsEnabled = value; } }
+        public double C3 { get => _simulation.JellyController.SpringinessSupp; set => _simulation.JellyController.SpringinessSupp = value; }
+        public double K { get => _simulation.JellyController.Dampening; set => _simulation.JellyController.Dampening = value; }
+        public double Bounciness { get => _simulation.JellyController.Bounciness; set => _simulation.JellyController.Bounciness = value; }
+        public double RandomVelocityMult { get => _simulation.JellyController.RandomVelocityMult; set => _simulation.JellyController.RandomVelocityMult = value; }
         public bool WireframeEnabled { get => _simulation.WireframeRenderer.Enabled; set => _simulation.WireframeRenderer.Enabled = value; }
         public bool ControlFrameEnabled { get => _simulation.ControlFrameRenderer.Enabled; set => _simulation.ControlFrameRenderer.Enabled = value; }
-        public bool GravityEnabled { get => _simulation.SpinningTopMovement.GravityEnabled; set => _simulation.SpinningTopMovement.GravityEnabled = value; }
-        public float Gravity { get => (float)_simulation.SpinningTopMovement.GravityMult; set => _simulation.SpinningTopMovement.GravityMult = value; }
-        public float Omega { get => _simulation.Omega; set => _simulation.Omega = value; }
-        public float DiagonalInclination { get => _simulation.DiagonalInclination; set => _simulation.DiagonalInclination = value; }
-        public float TrajectoryLength { get => _simulation.TrajectoryDrawer.MaxTrajectoryLength; set => _simulation.TrajectoryDrawer.MaxTrajectoryLength = value; }
         public float TimeScale { get => Registry.UpdateLoop.I.TimeScale; set => Registry.UpdateLoop.I.TimeScale = value; }
         public float FixedDeltaTime { get => Registry.FixedUpdateLoop.I.FixedDeltaTime; set => Registry.FixedUpdateLoop.I.FixedDeltaTime = value; }
 
@@ -87,7 +87,12 @@ namespace MadEngine
 
         private void btnRestartSim_Click(object sender, RoutedEventArgs e)
         {
+            _simulation.JellyController.ResetJelly();
+        }
 
+        private void btnRandomizeVelocities_Click(object sender, RoutedEventArgs e)
+        {
+            _simulation.JellyController.RandomizeVelocities();
         }
     }
 }

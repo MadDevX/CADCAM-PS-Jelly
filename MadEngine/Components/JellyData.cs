@@ -24,19 +24,24 @@ namespace MadEngine.Components
 
         public JellyData()
         {
+            ResetDataPoints();
+            for (int i = 0; i < _indices.Length; i++) _indices[i] = (uint)i;
+        }
+
+        public void ResetDataPoints()
+        {
             var offset = new Vector3d(-0.5, -0.5, -0.5);
             var third = 1.0f / 3.0f;
-            for(int y = 0; y < 4; y++)
+            for (int y = 0; y < 4; y++)
             {
-                for(int z = 0; z < 4; z++)
+                for (int z = 0; z < 4; z++)
                 {
-                    for(int x = 0; x < 4; x++)
+                    for (int x = 0; x < 4; x++)
                     {
                         DataPoints[x, y, z] = new Vector3d(x, y, z) * third + offset;
                     }
                 }
             }
-            for (int i = 0; i < _indices.Length; i++) _indices[i] = (uint)i;
         }
 
         public void Refresh(Mesh mesh)
