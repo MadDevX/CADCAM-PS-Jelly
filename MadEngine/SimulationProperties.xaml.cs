@@ -33,11 +33,14 @@ namespace MadEngine
 
         public double C1 { get => _simulation.JellyController.Springiness; set => _simulation.JellyController.Springiness = value; }
         public double C2 { get => _simulation.JellyController.SpringinessCF; set => _simulation.JellyController.SpringinessCF = value; }
-        public bool SupportSprings { get => _simulation.JellyController.SupportSprings; set { _simulation.JellyController.SupportSprings = value; tbC3.IsEnabled = value; } }
+        public bool SupportSprings { get => _simulation.JellyController.SupportSprings; set { _simulation.JellyController.SupportSprings = value; } }
+        public bool ControlFrameSprings { get => _simulation.JellyController.ControlFrameSprings; set { _simulation.JellyController.ControlFrameSprings = value; } }
         public double C3 { get => _simulation.JellyController.SpringinessSupp; set => _simulation.JellyController.SpringinessSupp = value; }
         public double K { get => _simulation.JellyController.Dampening; set => _simulation.JellyController.Dampening = value; }
         public double Bounciness { get => _simulation.JellyController.Bounciness; set => _simulation.JellyController.Bounciness = value; }
         public double RandomVelocityMult { get => _simulation.JellyController.RandomVelocityMult; set => _simulation.JellyController.RandomVelocityMult = value; }
+        public double GravityMult { get => _simulation.JellyController.GravityMult; set => _simulation.JellyController.GravityMult = value; }
+        public bool Gravity { get => _simulation.JellyController.EnableGravity; set => _simulation.JellyController.EnableGravity = value; }
         public bool WireframeEnabled { get => _simulation.WireframeRenderer.Enabled; set => _simulation.WireframeRenderer.Enabled = value; }
         public bool ControlFrameEnabled { get => _simulation.ControlFrameRenderer.Enabled; set => _simulation.ControlFrameRenderer.Enabled = value; }
         public float TimeScale { get => Registry.UpdateLoop.I.TimeScale; set => Registry.UpdateLoop.I.TimeScale = value; }

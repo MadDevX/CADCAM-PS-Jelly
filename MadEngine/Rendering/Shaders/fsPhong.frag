@@ -12,13 +12,14 @@ uniform vec3 lightPos = vec3(0.0f, 0.5f, 0.0f);
 uniform vec3 lightCol = vec3(1.0f, 1.0f, 1.0f);
 uniform vec3 camPos;
 
-uniform vec3 lightsPos[5]=vec3[5](
+uniform vec3 lightsPos[4]=vec3[4](
 	vec3( 0.0f,  7.5f,  0.0f),
 	vec3( 7.5f,  0.0f,  0.0f),
-	vec3(-7.5f,  0.0f,  0.0f),
 	vec3( 0.0f,  0.0f,  7.5f),
 	vec3( 0.0f,  0.0f, -7.5f)
 );
+
+uniform vec3 dirLight = vec3(1.0f, -1.0f, -1.0f);
 
 float near = 0.01f; //if changed, also change in Camera.cs
 float far = 100.0f; //if changed, also change in Camera.cs
@@ -35,7 +36,7 @@ void main()
     vec3 viewVec = normalize(camPos - FragPos);
 	vec3 normal = gl_FrontFacing == false ? -Normal : Normal;
 	
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < 4; i++)
 	{
 		vec3 lightVec = normalize(lightsPos[i] - FragPos);
 		vec3 halfVec = normalize(viewVec + lightVec);
@@ -51,6 +52,23 @@ void main()
 			resultColor += lightCol * nh;
 		}
 	}
+
+	{
+		vec3 lightVec = normalize(-dirLight);
+		vec3 halfVec = normalize(viewVec + lightVec);
+
+		resultColor += lightCol * color.xyz * kd * clamp(dot(normal, lightVec), 0.0f, 1.0f); //diffuse color
+	
+		if(dot(normal, lightVec) > 0.0f)
+		{
+			float nh = dot(normal, halfVec);
+			nh = clamp(nh, 0.0f, 1.0f);
+			nh = pow(nh, m);
+			nh *= ks;
+			resultColor += lightCol * nh;
+		}
+	}
+
 	float depth = min(LinearizeDepth(gl_FragCoord.z)/fogDistance, 1.0f);
 	FragColor = vec4(mix(resultColor.rgb, bgColor.rgb, depth), 1.0f);
 }

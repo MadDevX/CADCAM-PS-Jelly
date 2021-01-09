@@ -71,7 +71,7 @@ namespace MadEngine.Components
                 }
             }
         }
-        private bool _supportSprings = true; //TODO: change
+        private bool _supportSprings = true;
 
         public bool SupportSprings
         {
@@ -79,6 +79,18 @@ namespace MadEngine.Components
             set
             {
                 _supportSprings = value;
+                SetupSprings();
+            }
+        }
+
+        private bool _controlFrameSprings = true;
+
+        public bool ControlFrameSprings
+        {
+            get => _controlFrameSprings;
+            set
+            {
+                _controlFrameSprings = value;
                 SetupSprings();
             }
         }
@@ -93,6 +105,9 @@ namespace MadEngine.Components
             }
         }
 
+        public double GravityMult { get; set; } = 2.0;
+        public bool EnableGravity { get; set; } = false;
+
         public double RandomVelocityMult { get; set; } = 2.0;
 
         private List<SpringData> _springs = new List<SpringData>();
@@ -102,7 +117,6 @@ namespace MadEngine.Components
         private JellyBoundingBox _boundingBox;
         private double _eps = 0.001;
         private double _timer = 0.0;
-
 
         public JellyController(JellyControlFrame controlFrame)
         {
@@ -159,7 +173,7 @@ namespace MadEngine.Components
         {
             var dps = _jellyData.DataPoints;
             //springiness force per spring
-            foreach(var spring in _springs)
+            foreach (var spring in _springs)
             {
                 var aPos = spring.APos;
                 var bPos = spring.BPos;
@@ -177,10 +191,20 @@ namespace MadEngine.Components
                 }
             }
             //damping per point
-            for(int i = 0; i < dps.Length; i++)
+            for (int i = 0; i < dps.Length; i++)
             {
                 var g = -Dampening * _velocities[i];
                 _forces[i] += g;
+            }
+
+            //Gravity per point
+            if (EnableGravity)
+            {
+                for (int i = 0; i < dps.Length; i++)
+                {
+                    var g = -Vector3d.UnitY * GravityMult * MassOfSinglePoint;
+                    _forces[i] += g;
+                }
             }
         }
 
@@ -261,6 +285,7 @@ namespace MadEngine.Components
             _springs.Clear();
             var straightLength = (1.0 / 3.0) * _cubeSize;
             var diagonalLength = straightLength * Math.Sqrt(2.0);
+            var diagonalSupportLength = straightLength * Math.Sqrt(3.0);
 
 
             //STRAIGHT SPRINGS
@@ -353,15 +378,40 @@ namespace MadEngine.Components
                 }
             }
 
+            //SUPPORT SPRINGS (Diagonal)
+            if (SupportSprings)
+            {
+                for (int y = 0; y < 4; y++)
+                {
+                    for (int z = 0; z < 4; z++)
+                    {
+                        for (int x = 0; x < 4; x++)
+                        {
+                            if (x < 3 && z < 3 && y < 3) _springs.Add(new SpringData(_springinessSupp, diagonalSupportLength, new Vector3i(x, y, z), new Vector3i(x + 1, y + 1, z + 1), _jellyData.DataPoints));
+                            if (x < 3 && z > 0 && y < 3) _springs.Add(new SpringData(_springinessSupp, diagonalSupportLength, new Vector3i(x, y, z), new Vector3i(x + 1, y + 1, z - 1), _jellyData.DataPoints));
+                            if (x > 0 && z > 0 && y < 3) _springs.Add(new SpringData(_springinessSupp, diagonalSupportLength, new Vector3i(x, y, z), new Vector3i(x - 1, y + 1, z - 1), _jellyData.DataPoints));
+                            if (x > 0 && z < 3 && y < 3) _springs.Add(new SpringData(_springinessSupp, diagonalSupportLength, new Vector3i(x, y, z), new Vector3i(x - 1, y + 1, z + 1), _jellyData.DataPoints));
+                            if (x < 3 && z < 3 && y > 0) _springs.Add(new SpringData(_springinessSupp, diagonalSupportLength, new Vector3i(x, y, z), new Vector3i(x + 1, y - 1, z + 1), _jellyData.DataPoints));
+                            if (x < 3 && z > 0 && y > 0) _springs.Add(new SpringData(_springinessSupp, diagonalSupportLength, new Vector3i(x, y, z), new Vector3i(x + 1, y - 1, z - 1), _jellyData.DataPoints));
+                            if (x > 0 && z > 0 && y > 0) _springs.Add(new SpringData(_springinessSupp, diagonalSupportLength, new Vector3i(x, y, z), new Vector3i(x - 1, y - 1, z - 1), _jellyData.DataPoints));
+                            if (x > 0 && z < 3 && y > 0) _springs.Add(new SpringData(_springinessSupp, diagonalSupportLength, new Vector3i(x, y, z), new Vector3i(x - 1, y - 1, z + 1), _jellyData.DataPoints));
+                        }
+                    }
+                }
+            }
+
             //CONTROL FRAME SPRINGS
-            _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(0, 0, 0), new Vector3i(0, 0, 0), _jellyData.DataPoints, _controlFrame.DataPoints));
-            _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(3, 0, 0), new Vector3i(1, 0, 0), _jellyData.DataPoints, _controlFrame.DataPoints));
-            _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(0, 3, 0), new Vector3i(0, 1, 0), _jellyData.DataPoints, _controlFrame.DataPoints));
-            _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(3, 3, 0), new Vector3i(1, 1, 0), _jellyData.DataPoints, _controlFrame.DataPoints));
-            _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(0, 0, 3), new Vector3i(0, 0, 1), _jellyData.DataPoints, _controlFrame.DataPoints));
-            _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(3, 0, 3), new Vector3i(1, 0, 1), _jellyData.DataPoints, _controlFrame.DataPoints));
-            _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(0, 3, 3), new Vector3i(0, 1, 1), _jellyData.DataPoints, _controlFrame.DataPoints));
-            _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(3, 3, 3), new Vector3i(1, 1, 1), _jellyData.DataPoints, _controlFrame.DataPoints));
+            if (ControlFrameSprings)
+            {
+                _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(0, 0, 0), new Vector3i(0, 0, 0), _jellyData.DataPoints, _controlFrame.DataPoints));
+                _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(3, 0, 0), new Vector3i(1, 0, 0), _jellyData.DataPoints, _controlFrame.DataPoints));
+                _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(0, 3, 0), new Vector3i(0, 1, 0), _jellyData.DataPoints, _controlFrame.DataPoints));
+                _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(3, 3, 0), new Vector3i(1, 1, 0), _jellyData.DataPoints, _controlFrame.DataPoints));
+                _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(0, 0, 3), new Vector3i(0, 0, 1), _jellyData.DataPoints, _controlFrame.DataPoints));
+                _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(3, 0, 3), new Vector3i(1, 0, 1), _jellyData.DataPoints, _controlFrame.DataPoints));
+                _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(0, 3, 3), new Vector3i(0, 1, 1), _jellyData.DataPoints, _controlFrame.DataPoints));
+                _springs.Add(new SpringData(_springinessCF, 0.0, new Vector3i(3, 3, 3), new Vector3i(1, 1, 1), _jellyData.DataPoints, _controlFrame.DataPoints));
+            }
         }
     }
 }

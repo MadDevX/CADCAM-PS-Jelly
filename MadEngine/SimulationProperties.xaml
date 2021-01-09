@@ -27,6 +27,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Mass of Control Point" Grid.Row="0" Grid.Column="0"/>
             <TextBlock Text="C1 (Springiness-Jelly)" Grid.Row="1" Grid.Column="0"/>
@@ -37,6 +39,7 @@
             <TextBlock Text="FixedDeltaTime" Grid.Row="6" Grid.Column="0"/>
             <TextBlock Text="TimeScale" Grid.Row="7" Grid.Column="0"/>
             <TextBlock Text="Random Velocity Multiplier" Grid.Row="8" Grid.Column="0"/>
+            <TextBlock Text="GravityMult" Grid.Row="9" Grid.Column="0"/>
 
             <TextBox x:Name="tbMass" Grid.Row="0" Grid.Column="1" Text="{Binding MassOfControlPoint, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
             <TextBox x:Name="tbC1" Grid.Row="1" Grid.Column="1" Text="{Binding C1, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
@@ -47,11 +50,14 @@
             <TextBox x:Name="tbFDT" Grid.Row="6" Grid.Column="1" Text="{Binding FixedDeltaTime, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
             <TextBox x:Name="tbTS" Grid.Row="7" Grid.Column="1" Text="{Binding TimeScale, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
             <TextBox x:Name="tbRandomVelocityMult" Grid.Row="8" Grid.Column="1" Text="{Binding RandomVelocityMult, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
-            <Button x:Name="btnRandomizeVelocities" Grid.Row="9" Grid.Column="0" Content="Randomize Velocities" Click="btnRandomizeVelocities_Click"/>
-            <Button x:Name="btnRestartSimulation" Grid.Row="9" Grid.Column="1" Content="Restart Simulation" Click="btnRestartSim_Click"/>
-            <CheckBox Grid.Row="10" Grid.Column="0" Content="Support Springs" IsChecked="{Binding SupportSprings}"/>
-            <CheckBox Grid.Row="11" Grid.Column="0" Content="Control Frame Visible" IsChecked="{Binding ControlFrameEnabled}"/>
-            <CheckBox Grid.Row="12" Grid.Column="0" Content="Wireframe Visible" IsChecked="{Binding WireframeEnabled}"/>
+            <TextBox x:Name="tbGravityMult" Grid.Row="9" Grid.Column="1" Text="{Binding GravityMult, StringFormat='{}{0:0.00#######}'}" TextChanged="UpdateValidation"/>
+            <Button x:Name="btnRandomizeVelocities" Grid.Row="10" Grid.Column="0" Content="Randomize Velocities" Click="btnRandomizeVelocities_Click"/>
+            <Button x:Name="btnRestartSimulation" Grid.Row="10" Grid.Column="1" Content="Restart Simulation" Click="btnRestartSim_Click"/>
+            <CheckBox Grid.Row="11" Grid.Column="0" Content="Support Springs" IsChecked="{Binding SupportSprings}"/>
+            <CheckBox Grid.Row="12" Grid.Column="0" Content="Control Frame Springs" IsChecked="{Binding ControlFrameSprings}"/>
+            <CheckBox Grid.Row="13" Grid.Column="0" Content="Gravity" IsChecked="{Binding Gravity}"/>
+            <CheckBox Grid.Row="14" Grid.Column="0" Content="Control Frame Visible" IsChecked="{Binding ControlFrameEnabled}"/>
+            <CheckBox Grid.Row="15" Grid.Column="0" Content="Wireframe Visible" IsChecked="{Binding WireframeEnabled}"/>
         </Grid>
     </GroupBox>
 </UserControl>
