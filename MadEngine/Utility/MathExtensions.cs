@@ -9,6 +9,13 @@ namespace MadEngine
 {
     public static class MathExtensions
     {
+        public static T[] SubArray<T>(this T[] data, int index, int length)
+        {
+            T[] result = new T[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
+        }
+
         private static Matrix4 _powerToBernsteinMtx = new Matrix4(1.0f,    0.0f,        0.0f,     0.0f,
                                                                   1.0f, 1.0f / 3.0f,    0.0f,     0.0f,
                                                                   1.0f, 2.0f / 3.0f, 1.0f / 3.0f, 0.0f,
@@ -40,6 +47,23 @@ namespace MadEngine
             var eY = (float)Math.Asin(MathHelper.Clamp(2 * (q.X * q.Z + q.W * q.Y), -1.0, 1.0));
             var eZ = (float)Math.Atan2(-2 * (q.X * q.Y - q.W * q.Z), w2 + x2 - y2 - z2);
             return new Vector3(eX, eY, eZ);
+        }
+
+        public static (Vector3 a, Vector3 b, Vector3 c, Vector3 d) BSplineToBernstein(Vector3 a, Vector3 b, Vector3 c, Vector3 d)
+        {
+            Vector3 bernA, bernB, bernC, bernD;
+            var oneThird = 1.0f / 3.0f;
+            var twoThirds = 2.0f / 3.0f;
+
+            var firstMid = Vector3.Lerp(a, b, twoThirds);
+            var secondMid = Vector3.Lerp(b, c, oneThird);
+            var thirdMid = Vector3.Lerp(b, c, twoThirds);
+            var fourthMid = Vector3.Lerp(c, d, oneThird);
+            bernA = Vector3.Lerp(firstMid, secondMid, 0.5f);
+            bernB = secondMid;
+            bernC = thirdMid;
+            bernD = Vector3.Lerp(thirdMid, fourthMid, 0.5f);
+            return (bernA, bernB, bernC, bernD);
         }
 
         public static void PowerToBernstein(Vector3 a, Vector3 b, Vector3 c, Vector3 d, ref Vector3[] result)

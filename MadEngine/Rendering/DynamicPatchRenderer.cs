@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace MadEngine.Rendering
 {
-    public class DynamicMeshRenderer : MeshRenderer
+    public class DynamicPatchRenderer : PatchRenderer
     {
         private IDynamicMeshSource _source = null;
 
-        public DynamicMeshRenderer(ShaderWrapper shaderWrapper, Mesh mesh, IDynamicMeshSource source = null) : base(shaderWrapper, mesh)
+        public DynamicPatchRenderer(ShaderWrapper shaderWrapper, Mesh mesh, IDynamicMeshSource source = null) : base(shaderWrapper, mesh)
         {
             _source = source;
         }
 
         public override void Initialize()
         {
-            if (_source == null)
+            if(_source == null)
             {
                 _source = OwnerNode.GetComponent<IDynamicMeshSource>();
             }

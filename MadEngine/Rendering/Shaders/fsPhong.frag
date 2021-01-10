@@ -19,7 +19,7 @@ uniform vec3 lightsPos[4]=vec3[4](
 	vec3( 0.0f,  0.0f, -7.5f)
 );
 
-uniform vec3 dirLight = vec3(1.0f, -1.0f, -1.0f);
+uniform vec3 dirLight = vec3(1.0f, -2.0f, -1.0f);
 
 float near = 0.01f; //if changed, also change in Camera.cs
 float far = 100.0f; //if changed, also change in Camera.cs

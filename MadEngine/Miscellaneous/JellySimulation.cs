@@ -20,6 +20,8 @@ namespace MadEngine.Miscellaneous
         //JELLY
         public LineRenderer WireframeRenderer { get; private set; }
         public LineRenderer ControlFrameRenderer { get; private set; }
+        public DynamicPatchRenderer JellyRenderer { get; private set; }
+
         public Node Jelly { get; private set; }
         public Node ControlFrame { get; private set; }
 
@@ -42,17 +44,25 @@ namespace MadEngine.Miscellaneous
             var jellyBoundingBox = new JellyBoundingBox(boundingBoxRenderer, 5.0);
             
             var jellyData = new JellyData();
-            var jellyRenderer = new DynamicMeshRenderer(shaderProvider.SurfaceShaderBezier, new Mesh(VertexLayout.Type.Position), jellyData);
+            JellyRenderer = new DynamicPatchRenderer(shaderProvider.SurfaceShaderBezier, new Mesh(VertexLayout.Type.Position), jellyData);
             JellyController = new JellyController(jellyControlFrame);
 
             WireframeRenderer = new LineRenderer(shaderProvider.DefaultShader);
             var jellyCPVisualizer = new JellyControlPointVisualizer(WireframeRenderer);
-            Jelly.AttachComponents(jellyData, jellyRenderer, JellyController, boundingBoxRenderer, jellyBoundingBox, 
+            Jelly.AttachComponents(jellyData, JellyRenderer, JellyController, boundingBoxRenderer, jellyBoundingBox, 
                                     WireframeRenderer, jellyCPVisualizer);
 
 
             _sceneManager.CurrentScene.AttachChild(Jelly);
             _sceneManager.CurrentScene.AttachChild(ControlFrame);
+
+            var meshData = MeshLoader.LoadObj("monkey2.obj");
+            var monkey = new Node(new Transform(Vector3.Zero, Quaternion.Identity, Vector3.One), "monkey");
+            var jellyMesh = new JellyMesh(jellyData, meshData.positions, meshData.normals);
+            var renderer = new DynamicMeshRenderer(shaderProvider.PhongShader, meshData.mesh);
+
+            monkey.AttachComponents(renderer, jellyMesh);
+            _sceneManager.CurrentScene.AttachChild(monkey);
         }
 
         public void Dispose()
@@ -63,6 +73,7 @@ namespace MadEngine.Miscellaneous
             Jelly = null;
             ControlFrame = null;
             WireframeRenderer = null;
+            JellyRenderer = null;
             ControlFrameRenderer = null;
             JellyController = null;
         }

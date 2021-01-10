@@ -51,6 +51,13 @@ namespace MadEngine
             GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, dataType);
         }
 
+        public void SetVBOData(float[] vertices, BufferUsageHint dataType)
+        {
+            GL.BindVertexArray(VAO);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
+            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, dataType);
+        }
+
         private void InitializeGLObjects(VertexLayout.Type layoutType)
         {
             InitializeVBO();

@@ -43,6 +43,7 @@ namespace MadEngine
         public bool Gravity { get => _simulation.JellyController.EnableGravity; set => _simulation.JellyController.EnableGravity = value; }
         public bool WireframeEnabled { get => _simulation.WireframeRenderer.Enabled; set => _simulation.WireframeRenderer.Enabled = value; }
         public bool ControlFrameEnabled { get => _simulation.ControlFrameRenderer.Enabled; set => _simulation.ControlFrameRenderer.Enabled = value; }
+        public bool JellyRendererEnabled { get => _simulation.JellyRenderer.Enabled; set => _simulation.JellyRenderer.Enabled = value; }
         public float TimeScale { get => Registry.UpdateLoop.I.TimeScale; set => Registry.UpdateLoop.I.TimeScale = value; }
         public float FixedDeltaTime { get => Registry.FixedUpdateLoop.I.FixedDeltaTime; set => Registry.FixedUpdateLoop.I.FixedDeltaTime = value; }
 
