@@ -30,6 +30,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Mass of Control Point" Grid.Row="0" Grid.Column="0"/>
             <TextBlock Text="C1 (Springiness-Jelly)" Grid.Row="1" Grid.Column="0"/>
@@ -60,6 +61,7 @@
             <CheckBox Grid.Row="14" Grid.Column="0" Content="Control Frame Visible" IsChecked="{Binding ControlFrameEnabled}"/>
             <CheckBox Grid.Row="15" Grid.Column="0" Content="Wireframe Visible" IsChecked="{Binding WireframeEnabled}"/>
             <CheckBox Grid.Row="16" Grid.Column="0" Content="Jelly Visible" IsChecked="{Binding JellyRendererEnabled}"/>
+            <CheckBox Grid.Row="17" Grid.Column="0" Content="Jelly Mesh Visible" IsChecked="{Binding JellyMeshRendererEnabled}"/>
         </Grid>
     </GroupBox>
 </UserControl>

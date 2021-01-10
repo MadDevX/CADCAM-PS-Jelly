@@ -21,12 +21,12 @@ namespace MadEngine.Miscellaneous
         public LineRenderer WireframeRenderer { get; private set; }
         public LineRenderer ControlFrameRenderer { get; private set; }
         public DynamicPatchRenderer JellyRenderer { get; private set; }
+        public DynamicMeshRenderer JellyMeshRenderer { get; private set; }
 
         public Node Jelly { get; private set; }
         public Node ControlFrame { get; private set; }
 
         public JellyController JellyController { get; private set; }
-
 
         public JellySimulation(SceneManager sceneManager, ShaderProvider shaderProvider)
         {
@@ -59,9 +59,9 @@ namespace MadEngine.Miscellaneous
             var meshData = MeshLoader.LoadObj("monkey2.obj");
             var monkey = new Node(new Transform(Vector3.Zero, Quaternion.Identity, Vector3.One), "monkey");
             var jellyMesh = new JellyMesh(jellyData, meshData.positions, meshData.normals);
-            var renderer = new DynamicMeshRenderer(shaderProvider.PhongShader, meshData.mesh);
+            JellyMeshRenderer = new DynamicMeshRenderer(shaderProvider.PhongShader, meshData.mesh);
 
-            monkey.AttachComponents(renderer, jellyMesh);
+            monkey.AttachComponents(JellyMeshRenderer, jellyMesh);
             _sceneManager.CurrentScene.AttachChild(monkey);
         }
 
