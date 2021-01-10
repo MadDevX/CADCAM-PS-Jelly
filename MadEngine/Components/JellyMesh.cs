@@ -43,6 +43,15 @@ namespace MadEngine.Components
             return (position + Vector3.One * 0.5f).Double();
         }
 
+        private Vector3d GetModifiedNormal(Vector3d uvw, Vector3 normal, double offset = 0.005)
+        {
+            Vector3d offsetUVW = uvw  - offset * normal.Double();
+            //Vector3d offsetUVW = (uvw - Vector3d.One * 0.5) * (1.0 - offset) + Vector3d.One * 0.5;
+            var basePoint = Bezier.GetPoint(_data.DataPoints, uvw);
+            var off = Bezier.GetPoint(_data.DataPoints, offsetUVW);
+            return (basePoint - off).Normalized();
+        }
+
         private void SetDirty()
         {
             _isDirty = true;
@@ -54,7 +63,7 @@ namespace MadEngine.Components
             {
                 Parallel.For(0, _UVWs.Length, (i) =>
                     {
-                        VBOUtility.SetVertex(_vertices, Bezier.GetPoint(_data.DataPoints, _UVWs[i]).Float(), _normals[i], i);
+                        VBOUtility.SetVertex(_vertices, Bezier.GetPoint(_data.DataPoints, _UVWs[i]).Float(), GetModifiedNormal(_UVWs[i], _normals[i]).Float(), i);
                     }
                 );
                 mesh.SetVBOData(_vertices, OpenTK.Graphics.OpenGL.BufferUsageHint.DynamicDraw);
